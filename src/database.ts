@@ -1,4 +1,8 @@
+import { type } from "os";
 import { TProduct, TUser } from "./types"
+let data = new Date();
+let dataAtual = new Date(data.valueOf() - data.getTimezoneOffset() * 60000);
+
 
 
 export const users: TUser[] = [
@@ -7,7 +11,7 @@ export const users: TUser[] = [
         name : "Fulano",
         email : "fulano@email.com",
         password : "fulano123",
-        createdAt: new Date().toISOString()
+        createdAt: dataAtual.toISOString()
       },
     
       {
@@ -15,7 +19,7 @@ export const users: TUser[] = [
         name : "Beltrana",
         email : "beltrana@email.com",
         password : "beltrana00",
-        createdAt : new Date().toISOString()
+        createdAt : dataAtual.toISOString()
       }
     
     ]
@@ -37,3 +41,30 @@ export const users: TUser[] = [
       }
 ]
 
+export function createUser(id:string, name:string, email: string, password:string):void{
+  const newUser: TUser = { id, name, email, password, createdAt:dataAtual};
+  users.push(newUser);
+  console.log("Cadastro realizado com sucesso ", newUser)
+}
+
+export function getAllUsers(): TUser[]{
+  return users
+  
+}
+
+export function createProduct(id:string, name:string, price:number, description:string, imageUrl:string):void{
+  const newProduct: TProduct = {id, name, price, description, imageUrl};
+  products.push(newProduct)
+  console.log("Produto criado com sucesso")
+}
+export function getAllProducts(): TProduct[]{
+  return products
+  
+}
+
+export function searchProductsByName(name:string):TProduct[]{
+  const result = products.filter((product)=>{
+    return product.name.toLowerCase().includes(name)
+  })
+  return result
+}
