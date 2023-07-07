@@ -36,7 +36,13 @@ exports.products = [
     }
 ];
 function createUser(id, name, email, password) {
-    const newUser = { id, name, email, password, createdAt: dataAtual };
+    const newUser = {
+        id,
+        name,
+        email,
+        password,
+        createdAt: dataAtual
+    };
     exports.users.push(newUser);
     console.log("Cadastro realizado com sucesso ", newUser);
 }

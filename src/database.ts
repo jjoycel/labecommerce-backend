@@ -41,10 +41,26 @@ export const users: TUser[] = [
       }
 ]
 
-export function createUser(id:string, name:string, email: string, password:string):void{
-  const newUser: TUser = { id, name, email, password, createdAt:dataAtual};
+export function createUser(id:string, name:string, email: string, password:string):string{
+  
+  const newUser: TUser = { 
+    id, 
+    name, 
+    email, 
+    password, 
+    //para que fosse aceito a nova modificação, adicionei um toISOString() para converter
+    // o valor dataAtual para string. 
+    createdAt:dataAtual.toISOString()
+  };
   users.push(newUser);
+  // aqui vamos retornar essa resposta. 
+  // isso porque a atividade pede para retornar essa frase para o client.
+  // por isso, além do console.log vou dar um return na frase
   console.log("Cadastro realizado com sucesso ", newUser)
+
+  //porem, para que isso funcione preciso tipar o retorno dessa função (createUser) para
+  // string. Observe que estava void (sem retorno) e agora está string ("Cadastro realizado com sucesso")
+    return ("Cadastro realizado com sucesso ")
 }
 
 export function getAllUsers(): TUser[]{
