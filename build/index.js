@@ -1,12 +1,47 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const database_1 = require("./database");
-console.log("Started App");
-console.log(database_1.users, database_1.products);
-(0, database_1.createUser)("u003", "Joyce", "user@user", "asdf123");
-console.table((0, database_1.getAllUsers)());
-(0, database_1.createProduct)("prod003", "SSD gamer", 349.99, "Acelere seu sistema com velocidades incríveis de leitura e gravação.", "imagem não disponível");
-console.table((0, database_1.getAllProducts)());
-console.log("busca 1", (0, database_1.searchProductsByName)("gamer"));
-console.log("busca 2", (0, database_1.searchProductsByName)("monitor"));
+const express_1 = __importDefault(require("express"));
+const cors_1 = __importDefault(require("cors"));
+const app = (0, express_1.default)();
+app.use((0, cors_1.default)());
+app.listen(3003, () => {
+    console.log("Servidor rodando na porta 3003");
+});
+app.get('/ping', (req, res) => {
+    res.send('Obrigada, Senhor!');
+});
+app.get('/users', (req, res) => {
+    res.send(database_1.users);
+});
+app.get('/products', (req, res) => {
+    const name = req.query.name;
+    if (name) {
+        const result = (0, database_1.searchProductsByName)(name);
+        res.status(200).send(result);
+    }
+    else {
+        res.send(database_1.products);
+    }
+});
+app.post("/users"), (req, res) => {
+    const id = req.body.id;
+    const name = req.body.name;
+    const email = req.body.email;
+    const password = req.body.password;
+    const result = (0, database_1.createUser)(id, name, email, password);
+    res.status(201).send(result);
+};
+app.post("/products"), (req, res) => {
+    const id = req.body.id;
+    const name = req.body.name;
+    const price = req.body.price;
+    const description = req.body.description;
+    const imageUrl = req.body.imageUrl;
+    const result = (0, database_1.createProduct)(id, name, price, description, imageUrl);
+    res.status(201).send(result);
+};
 //# sourceMappingURL=index.js.map
