@@ -56,11 +56,11 @@ export function createUser(id:string, name:string, email: string, password:strin
   // aqui vamos retornar essa resposta. 
   // isso porque a atividade pede para retornar essa frase para o client.
   // por isso, além do console.log vou dar um return na frase
-  console.log("Cadastro realizado com sucesso ", newUser)
+  console.log("Cadastro realizado com sucesso!", newUser)
 
   //porem, para que isso funcione preciso tipar o retorno dessa função (createUser) para
   // string. Observe que estava void (sem retorno) e agora está string ("Cadastro realizado com sucesso")
-    return ("Cadastro realizado com sucesso ")
+    return ("Cadastro realizado com sucesso!")
 }
 
 export function getAllUsers(): TUser[]{
@@ -71,7 +71,7 @@ export function getAllUsers(): TUser[]{
 export function createProduct(id:string, name:string, price:number, description:string, imageUrl:string):void{
   const newProduct: TProduct = {id, name, price, description, imageUrl};
   products.push(newProduct)
-  console.log("Produto criado com sucesso")
+  console.log("Produto criado com sucesso!")
 }
 export function getAllProducts(): TProduct[]{
   return products

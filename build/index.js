@@ -7,12 +7,13 @@ const database_1 = require("./database");
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const app = (0, express_1.default)();
+app.use(express_1.default.json());
 app.use((0, cors_1.default)());
 app.listen(3003, () => {
     console.log("Servidor rodando na porta 3003");
 });
 app.get('/ping', (req, res) => {
-    res.send('Obrigada, Senhor!');
+    res.send('pong!');
 });
 app.get('/users', (req, res) => {
     res.send(database_1.users);
@@ -27,15 +28,16 @@ app.get('/products', (req, res) => {
         res.send(database_1.products);
     }
 });
-app.post("/users"), (req, res) => {
+app.post('/users', (req, res) => {
+    console.log("chegou");
     const id = req.body.id;
     const name = req.body.name;
     const email = req.body.email;
     const password = req.body.password;
     const result = (0, database_1.createUser)(id, name, email, password);
     res.status(201).send(result);
-};
-app.post("/products"), (req, res) => {
+});
+app.post('/products', (req, res) => {
     const id = req.body.id;
     const name = req.body.name;
     const price = req.body.price;
@@ -43,5 +45,13 @@ app.post("/products"), (req, res) => {
     const imageUrl = req.body.imageUrl;
     const result = (0, database_1.createProduct)(id, name, price, description, imageUrl);
     res.status(201).send(result);
-};
+});
+app.delete('/users/:id', (req, res) => {
+    const idToDelete = req.params.id;
+    const idIndex = database_1.users.findIndex((user) => user.id === idToDelete);
+    if (idIndex >= ) {
+        database_1.users.splice(idIndex, 1);
+    }
+    res.status(200).send("Usuário deletado com sucesso!");
+});
 //# sourceMappingURL=index.js.map

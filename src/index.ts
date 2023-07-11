@@ -28,7 +28,7 @@ app.listen(3003, () => {
 //retire o conteúdo das últimas aulas.
 
 app.get('/ping', (req: Request, res: Response) => {
-    res.send('Obrigada, Senhor!')
+    res.send('pong!')
   });
 app.get('/users', (req: Request, res: Response) => {
     res.send(users)
@@ -79,4 +79,46 @@ app.post('/products', (req: Request, res: Response) => {
 
     res.status(201).send(result)
     
+})
+app.delete('/users/:id', (req: Request, res: Response) => {
+    const idToDelete = req.params.id
+
+    const idIndex = users.findIndex((user) => user.id === idToDelete)
+    if (idIndex >= 0) {
+        users.splice(idIndex, 1)
+        
+    }
+    res.status(200).send("Usuário deletado com sucesso!")
+})
+app.delete('/products/:id', (req: Request, res: Response) => {
+    const idToDelete = req.params.id
+
+    const idIndex = products.findIndex((product) => product.id === idToDelete)
+    if (idIndex >= 0) {
+        products.splice(idIndex, 1)
+        
+    }
+    res.status(200).send("Produto deletado com sucesso!")
+})
+app.put('/products/:id', (req: Request, res: Response) => {
+    const idToEdit = req.params.id
+
+    const newId = req.body.id as string | undefined         
+    const newName = req.body.name as string | undefined         
+	const newPrice = req.body.price as number | undefined   
+    const newDescription = req.body.description as string | undefined  
+	const newImageUrl = req.body.imageUrl as string | undefined   
+   
+    const product = products.find((product) => product.id === idToEdit)
+
+    if (product) {
+        
+        product.id = newId || product.id
+        product.name = newName || product.name
+        product.price = newPrice || product.price
+        product.description = newDescription || product.description
+        product.imageUrl = newImageUrl || product.imageUrl
+    }    
+
+    res.status(200).send("Produto atualizado com sucesso!")
 })
