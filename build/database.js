@@ -41,10 +41,11 @@ function createUser(id, name, email, password) {
         name,
         email,
         password,
-        createdAt: dataAtual
+        createdAt: dataAtual.toISOString()
     };
     exports.users.push(newUser);
-    console.log("Cadastro realizado com sucesso ", newUser);
+    console.log("Cadastro realizado com sucesso!", newUser);
+    return ("Cadastro realizado com sucesso!");
 }
 exports.createUser = createUser;
 function getAllUsers() {
@@ -54,7 +55,7 @@ exports.getAllUsers = getAllUsers;
 function createProduct(id, name, price, description, imageUrl) {
     const newProduct = { id, name, price, description, imageUrl };
     exports.products.push(newProduct);
-    console.log("Produto criado com sucesso");
+    console.log("Produto criado com sucesso!");
 }
 exports.createProduct = createProduct;
 function getAllProducts() {
